@@ -33,8 +33,8 @@
  *
  * Remarks:
  *
- * [TABLE]
- *             | n = 10^2 | n = 10^3 | n = 10^4 | n = 10^5 | n = 10^6 |
+ * [TABLE in nanoseconds]
+ *              | n = 10^2 | n = 10^3 | n = 10^4 | n = 10^5 | n = 10^6 |
  * -----------------------------------------------------------------
  * Brute Force  |  390800  | 8678200  | 40145100 |1954768500|242662110900 |
  * Divide &     |  337000  | 1477500  | 2943200  |39091700  |68441200  |
@@ -42,17 +42,37 @@
  *
  * 3a) Are the running times measured for Brute Force consistent with the
  *     theoretical running time? 
- *     - [Y/N to be answered]
+ *     - Yes
  *
  * 3b) Justify 3a
- *     - [reasoning to be filled in by the team]
+ *     - The brute force algorithm has theoretical running time O(n^2). This means that when n is
+ *       multiplied by 10, the running time should increase by approximately 100 times, because
+ *       (10n^2)/n^2 = 100. Looking at the table when n increases from 10^4 to 10^5, the running
+ *       time increases from 40,145,100 nanoseconds to 1,954,768,500 nanoseconds. The ratio is
+ *       1,954,768,500/ 40,145,100 = 48.69. When n increases from 10^5 to 10^6, the running
+ *       time increases from 1,954,768,500 nanoseconds to 242,662,110,900 nanoseconds. The
+ *       ratio is 242,662,100,900/1,954,768,500 = 124.14. Although these ratios are not exactly
+ *       100, they are of the same order of magnitude and demonstrate strong quadratic growth,
+ *       especially for larger values of n. The smaller input sizes do not scale perfectly because
+ *       of constant overhead, JVM warm up effects, and timing fluctuations that can distort
+ *       measurements when n is small. Overall, as n increases, the running times grow in a
+ *       manner consistent with the theoretical O(n^2) complexity
+
  *
  * 3c) Are the running times measured for Divide & Conquer consistent with
  *     the theoretical running time? 
- *     - [Y/N to be answered]
+ *     - Yes
  *
  * 3d) Justify 3c
- *     - [reasoning to be filled in by the team]
+ *     - The divide and conquer algorithm has theoretical running time O(n log n). When n is multiplied by 10, 
+ *       the expected growth factor is approximately 10 × log(10n)/log(n), which yields ratios of roughly 12–15 depending on input n. 
+ *       Looking at the table, from n = 10⁴ to n = 10⁵, the running time increases from 2,943,200 to 39,091,700 nanoseconds, 
+ *       giving a ratio of 39,091,700 / 2,943,200 = 13.28, which closely matches the predicted ratio of approximately 12.5. 
+ *       The smaller input sizes (10² to 10³ and 10³ to 10⁴) show ratios of 4.38 and 1.99, which are lower than expected. 
+ *       Similarly, from 10⁵ to 10⁶ the ratio is only 1.75. These deviations at small n are most probably due to JVM warmup, 
+ *       constant overhead, and timing granularity, while the deviation at large inputs of n may be due to caching effects or JIT
+ *       compilation optimizing the recursive calls over time. However, the middle range (10⁴ to 10⁵) demonstrates growth consistent with 
+ *       O(n log n), and overall the times grow much slower than the brute force quadratic times, which is consistent with the theoretical n log n complexity.
  *
  *******************************************************************/
 
